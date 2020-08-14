@@ -23,4 +23,12 @@ router.get('/:id', (req, res) => {
     .catch(error => res.status(500).json({ message: 'There was a problem with the server.', error }));
 });
 
+router.post('/', (req, res) => {
+  const { id } = req.params;
+  const project = req.body;
+  projectsDb.postProject(project)
+    .then(project => res.status(200).json(project))
+    .catch(error => res.status(500).json({ message: 'There was a problem with the server.', error }));
+});
+
 module.exports = router;
