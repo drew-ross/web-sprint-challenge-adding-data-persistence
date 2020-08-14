@@ -10,4 +10,17 @@ router.get('/', (req, res) => {
     .catch(error => res.status(500).json({ message: 'There was a problem with the server.', error }));
 });
 
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+  projectsDb.getProjectById(id)
+    .then(project => {
+      if (project) {
+        res.status(200).json(project);
+      } else {
+        res.status(404).json({ message: 'A project by that ID was not found.' });
+      }
+    })
+    .catch(error => res.status(500).json({ message: 'There was a problem with the server.', error }));
+});
+
 module.exports = router;
